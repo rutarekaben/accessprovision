@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "520500113416",
+    "firebase_url": "https://access-5ceaa.firebaseio.com",
+    "project_id": "access-5ceaa",
+    "storage_bucket": "access-5ceaa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520500113416:android:ca72cc7065ae8f6c",
+        "android_client_info": {
+          "package_name": "rw.iraguha.secureaccess"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520500113416-mvp0926o4dpep744stsj3o2dolbs0fjh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf99pn4XnAylFLHzqqdDSN6mU5KvozUNk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

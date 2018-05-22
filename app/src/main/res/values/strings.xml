@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Access Provision</string>
+    <string name="title_activity_map_fragment">Secure Access</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="student_fragment_title">Passenger</string>
+    <string name="enter_phone">Phone</string>
+    <string name="title_activity_verify">Verify</string>
+    <string name="verify_activity_title">verify</string>
+    <string name="message_icon">message icon</string>
+    <string name="bus_stop_student_title">Passenger On This</string>
+    <string name="login_title">Access Provisiong</string>
+    <string name="pick_up_address">Choose Destination</string>
+    <string name="title_home">Home</string>
+    <string name="clear">Clear</string>
+    <string name="title_activity_face">FaceActivity</string>
+    <string name="images_capture">Capture</string>
+    <string name="open_gallery">Open Gallery</string>
+    <string name="images_compare">Compare Images</string>
+    <string name="left_empty_image">Capture the left image</string>
+    <string name="right_empty_image">Capture the right image</string>
+    <string name="images_empty_image">Capture two images to compare</string>
+    <string name="images_result" formatted="true">Similarity: %s</string>
+    <string name="no_similarity">No similarity</string>
+    <string name="similarity_empty_image">Add a level of similarity</string>
+    <string name="images_progress_dialog_title">Loading</string>
+    <string name="images_progress_dialog_message">Checking similarity</string>
+    <string name="aws_access_key">AKIAIG3AT5THOOALYWLA</string>
+    <string name="aws_secret_key">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</string>
+
+    <string-array name="rank">
+        <item>IGP</item>
+        <item>DIGP</item>
+        <item>CP</item>
+        <item>ACP</item>
+        <item>CSP</item>
+        <item>SSP</item>
+        <item>SUPT</item>
+        <item>CIP</item>
+        <item>IP</item>
+    </string-array>
+
+</resources>
