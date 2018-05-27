@@ -5,8 +5,10 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseUser;
 
@@ -20,38 +22,26 @@ public class Home extends AppCompatActivity {
     public FirebaseUser mUser;
     public Bitmap mPhoto;
     public Boolean isAvailable;
-    public ImageView mImageView;
+    public CardView addEmployee,manageEmployee,reports,paradereports;
+    public LinearLayout firstStage,secondStage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        mImageView = findViewById(R.id.mImageView);
-        if(getIntent() != null){
-            isAvailable = getIntent().getBooleanExtra("photo", false);
-            if(isAvailable){
-                mPhoto = ImageHolder.get().getLargeData();
-                mImageView.setImageBitmap(mPhoto);
-            }
-        }
-        BottomNavigationView b_nav = findViewById(R.id.navigation);
-        Helper.disableShiftMode(b_nav);
-        b_nav.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()){
 
-                case R.id.home_about:
-                    //
-                    break;
-                case R.id.menu_student:
-                    //
-                    break;
-                case R.id.menu_profile:
-                    Intent mAIntent = new Intent(Home.this,LoginActivity.class);
-                    startActivity(mAIntent);
-                    break;
-                default:
-                    //;
-            }
-            return true;
-        });
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Home");
+
+        addEmployee = findViewById(R.id.addEmployee);
+        manageEmployee = findViewById(R.id.manageEmployee);
+        reports = findViewById(R.id.reports);
+        paradereports = findViewById(R.id.paradereports);
+
+        addEmployee.setOnClickListener(v-> startActivity(new Intent(this,RegisterActivity.class)));
+        manageEmployee.setOnClickListener(v-> startActivity(new Intent(this,RegisterActivity.class)));
+        reports.setOnClickListener(v-> startActivity(new Intent(this,OtherReportActivity.class)));
+        paradereports.setOnClickListener(v-> startActivity(new Intent(this,ReportActivity.class)));
+
     }
 }

@@ -42,13 +42,33 @@
             android:label="@string/title_activity_verify"
             android:theme="@style/StatusBarHack"
             android:windowSoftInputMode="adjustPan|adjustResize" />
-
-        <activity android:name=".activity.RegisterActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.FaceDetectRGBActivity" />
+
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
+
+        <activity
+            android:name=".activity.ReportActivity"
+            android:label="@string/title_activity_report"
+            android:parentActivityName=".activity.Home"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="rw.iraguha.secureaccess.activity.Home" />
+        </activity>
+        <activity
+            android:name=".activity.OtherReportActivity"
+            android:label="@string/title_activity_other_report"
+            android:parentActivityName=".activity.Home"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="rw.iraguha.secureaccess.activity.Home" />
+        </activity>
     </application>
 
 </manifest>

@@ -43,8 +43,6 @@ public class VerifyActivity extends AppCompatActivity {
     TextView resend_otp;
     Pinview verify_otp;
     public String phone;
-    SharedPreferences.Editor editor;
-    SharedPreferences sharedPref;
     SmsVerifyCatcher smsVerifyCatcher;
     private static final int STATE_INITIALIZED = 1;
     private static final int STATE_CODE_SENT = 2;
@@ -58,6 +56,8 @@ public class VerifyActivity extends AppCompatActivity {
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+    SharedPreferences.Editor editor;
+    SharedPreferences sharedPref;
 
 
     @Override
@@ -74,8 +74,6 @@ public class VerifyActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getString(R.string.verify_activity_title));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        SharedPreference mSharedPreference =  new SharedPreference(this);
-        sharedPref = mSharedPreference.getIntance();
         verify_otp = findViewById(R.id.verify_otp);
         time_count = findViewById(R.id.time_count);
         resend_otp = findViewById(R.id.resend_otp);
@@ -84,7 +82,8 @@ public class VerifyActivity extends AppCompatActivity {
             phone = getIntent().getStringExtra("phone");
             phone = "+"+phone;
         }
-
+        SharedPreference mSharedPreference =  new SharedPreference(this);
+        sharedPref = mSharedPreference.getIntance();
         //initialize authentication API
         mAuth = FirebaseAuth.getInstance();
 
@@ -273,40 +272,36 @@ public class VerifyActivity extends AppCompatActivity {
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCredential:success");
+                        editor = sharedPref.edit();
+                        editor.putBoolean("logged_in", true);
+                        editor.apply();
 
-                            FirebaseUser user = task.getResult().getUser();
-                            // [START_EXCLUDE]
-                            editor = sharedPref.edit();
-                            editor.putBoolean("logged_in", true);
-                            editor.apply();
-                            //temporary fix
-                            Intent mIntent = new Intent(VerifyActivity.this,Home.class);
-                            mIntent.putExtra("user", user);
-                            mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(mIntent);
-                            finish();
-                            // [END_EXCLUDE]
-                        } else {
-                            // Sign in failed, display a message and update the UI
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                                // [START_EXCLUDE silent]
-                                Toasty.error(getBaseContext(),"Invalid Code!",Toast.LENGTH_SHORT,true).show();
-                                // [END_EXCLUDE]
-                            }
+                        FirebaseUser user = task.getResult().getUser();
+                        // [START_EXCLUDE]
+                        //proceed with checking face
+                        Intent mIntent = new Intent(VerifyActivity.this,FaceDetectRGBActivity.class);
+                        mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(mIntent);
+                        finish();
+                        // [END_EXCLUDE]
+                    } else {
+                        // Sign in failed, display a message and update the UI
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                            // The verification code entered was invalid
                             // [START_EXCLUDE silent]
-                            // Update UI
-                            resend_otp.setVisibility(View.VISIBLE);
+                            Toasty.error(getBaseContext(),"Invalid Code!",Toast.LENGTH_SHORT,true).show();
                             // [END_EXCLUDE]
                         }
+                        // [START_EXCLUDE silent]
+                        // Update UI
+                        resend_otp.setVisibility(View.VISIBLE);
+                        // [END_EXCLUDE]
                     }
-        });
+                });
     }
 }

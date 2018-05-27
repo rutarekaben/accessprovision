@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
             finish();
         }else if(logged_in){
             // Start Main activity //change it temps
-            startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+            startActivity(new Intent(getApplicationContext(), Home.class));
             finish();
         }else {
             // Start Login activity

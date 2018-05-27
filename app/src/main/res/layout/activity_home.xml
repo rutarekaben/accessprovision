@@ -1,32 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true"
+    android:background="@color/grey_200"
     tools:context="rw.iraguha.secureaccess.activity.Home">
-    <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/flContent"
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="8dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="@color/white" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.2" >
-        <ImageView
-            android:id="@+id/mImageView"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-    </LinearLayout>
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/bottom_menu" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <LinearLayout
+            android:id="@+id/firstStage"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <android.support.v7.widget.CardView
+                android:id="@+id/addEmployee"
+                android:elevation="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginRight="5dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_shield_out"
+                    />
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/manageEmployee"
+                android:elevation="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_shield"
+                    />
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/secondStage"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <android.support.v7.widget.CardView
+                android:id="@+id/reports"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginRight="5dp"
+                android:elevation="5dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_person_black_24dp"
+                    />
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/paradereports"
+                android:elevation="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_accept"
+                    />
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+    </LinearLayout>
+ </ScrollView>
+</android.support.design.widget.CoordinatorLayout>

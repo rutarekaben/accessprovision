@@ -10,10 +10,10 @@ import com.amazonaws.services.rekognition.AmazonRekognitionClient;
 public class AmazonRekognitionUtils {
 
     public static AmazonRekognition getAmazonRekognition(Context context) {
-//        AmazonRekognitionClient amazonRekognitionClient = new AmazonRekognitionClient(AWSCredentialsUtils.createCredentials(context));
-//        amazonRekognitionClient.setRegion(Region.getRegion(Regions.US_EAST_1));
-        AmazonRekognitionClient amazonRekognitionClient = new AmazonRekognitionClient(AWSManager.getAwsCredentials(context));
+        AmazonRekognitionClient amazonRekognitionClient = new AmazonRekognitionClient(AWSCredentialsUtils.createCredentials(context));
         amazonRekognitionClient.setRegion(Region.getRegion(Regions.US_EAST_1));
+//        AmazonRekognitionClient amazonRekognitionClient = new AmazonRekognitionClient(AWSManager.getAwsCredentials(context));
+//        amazonRekognitionClient.setRegion(Region.getRegion(Regions.US_EAST_1));
 
         return amazonRekognitionClient;
     }

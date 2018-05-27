@@ -24,14 +24,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -49,7 +45,6 @@ import java.util.Map;
 import dmax.dialog.SpotsDialog;
 import es.dmoral.toasty.Toasty;
 import rw.iraguha.secureaccess.R;
-import rw.iraguha.secureaccess.activity.ui.FaceView;
 import rw.iraguha.secureaccess.model.FaceResult;
 import rw.iraguha.secureaccess.utils.ImageUtils;
 
@@ -137,6 +132,8 @@ public class RegisterActivity extends AppCompatActivity {
                             uploadTask.addOnFailureListener(exception -> {
                                 // Handle unsuccessful uploads
                                 Toasty.error(this,"Error occured while saving your face!",Toast.LENGTH_LONG,true).show();
+                                exception.printStackTrace();
+                                progressDialog.dismiss();
                             }).addOnSuccessListener(taskSnapshot -> {
                                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                                 progressDialog.dismiss();
