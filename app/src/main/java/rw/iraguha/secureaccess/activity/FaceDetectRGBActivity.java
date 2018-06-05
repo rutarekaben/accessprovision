@@ -29,6 +29,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.amazonaws.services.rekognition.model.CompareFacesResult;
@@ -72,7 +73,7 @@ import rw.iraguha.secureaccess.utils.Util;
 
 
 public final class FaceDetectRGBActivity extends AppCompatActivity implements SurfaceHolder.Callback, Camera.PreviewCallback {
-    final long ONE_MEGABYTE = 1024 * 1024;
+    final long DOWN_MEGABYTE = 1024 * 1024 * 5;
     // Number of Cameras in device.
     private int numberOfCameras;
 
@@ -125,6 +126,8 @@ public final class FaceDetectRGBActivity extends AppCompatActivity implements Su
     private AlertDialog progressDialog;
     SharedPreferences.Editor editor;
     SharedPreferences sharedPref;
+    ImageView imagePreview;
+    Bitmap imagePreviewBitmap;
 
 
     //==============================================================================================
@@ -150,10 +153,12 @@ public final class FaceDetectRGBActivity extends AppCompatActivity implements Su
         progressDialog = new SpotsDialog(this);
 
         mView = (SurfaceView) findViewById(R.id.surfaceview);
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         // Now create the OverlayView:
         mFaceView = new FaceOverlayView(this);
+        imagePreview = findViewById(R.id.imagePreview);
         addContentView(mFaceView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         // Create and Start the OrientationListener:
 //        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -465,8 +470,7 @@ public final class FaceDetectRGBActivity extends AppCompatActivity implements Su
         }
 
         public void run() {
-//            Log.i("FaceDetectThread", "running");
-
+            Log.i("FaceDetectThread", "running");
             float aspect = (float) previewHeight / (float) previewWidth;
             int w = prevSettingWidth;
             int h = (int) (prevSettingWidth * aspect);
@@ -590,6 +594,7 @@ public final class FaceDetectRGBActivity extends AppCompatActivity implements Su
                             //
                             if (count == 5) {
                                 faceCroped = ImageUtils.cropFace(faces[i], bitmap, rotate);
+                                imagePreviewBitmap = ImageUtils.rotate(bitmap, rotate);
                                 if (faceCroped != null) {
                                     handler.post(() ->{
                                                  //stop cam & hide its view
@@ -597,25 +602,34 @@ public final class FaceDetectRGBActivity extends AppCompatActivity implements Su
                                                     mCamera.stopPreview();
                                                 }
                                                 mView.setVisibility(View.GONE);
+                                                mFaceView.setVisibility(View.GONE);
+                                                imagePreview.setVisibility(View.VISIBLE);
+                                                imagePreview.setImageBitmap(imagePreviewBitmap);
+                                                progressDialog.show();
+                                                progressDialog.setMessage("checking you in database ...");
                                                 //getting image from firebase storager
                                                 Log.d(TAG, "Phonenumbe =>"+mUser.getPhoneNumber());
                                                 StorageReference faceImageRef = mStorageRef.child(String.format("faces/%s.png",mUser.getPhoneNumber().substring(1)));
-                                                faceImageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
+                                                faceImageRef.getBytes(DOWN_MEGABYTE).addOnSuccessListener(bytes -> {
                                                         //got byte[] of the image
                                                         Bitmap mRetFace = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                                         if(mRetFace != null){
                                                             try{
+                                                                progressDialog.setMessage("running face recognition algorithm ...");
                                                                 Log.d(TAG, "let's try comparing these images");
                                                                 compareImages(faceCroped,mRetFace);
                                                             }catch (Exception e){
+                                                                progressDialog.dismiss();
                                                                 e.printStackTrace();
                                                             }
                                                         }else
                                                         {
+                                                            progressDialog.dismiss();
                                                             Toasty.error(getApplicationContext(),"Error Occured in converting Uri to Bitmap", Toast.LENGTH_LONG,true).show();
                                                         }
                                                 }).addOnFailureListener(exception -> {
                                                     // Handle any errors
+                                                    progressDialog.dismiss();
                                                     Toasty.error(getApplicationContext(),"Error Occured in retreiving saved faces", Toast.LENGTH_LONG,true).show();
                                                 });
                                         });
@@ -680,10 +694,12 @@ public final class FaceDetectRGBActivity extends AppCompatActivity implements Su
 //                        progressDialog.dismiss();
                         showCompareFacesResult(result);
                     } catch (Exception ex) {
+                        progressDialog.dismiss();
                         ex.printStackTrace();
                     }
                 });
             } catch (Exception ex) {
+                progressDialog.dismiss();
                 ex.printStackTrace();
             }
         });
@@ -694,20 +710,31 @@ public final class FaceDetectRGBActivity extends AppCompatActivity implements Su
         //showCompareFacesResult: {SourceImageFace: {BoundingBox: {Width: 0.68703705,Height: 0.72038835,Left: 0.12962963,Top: 0.16407767},Confidence: 99.986404},FaceMatches: [{Similarity: 89.0,Face: {BoundingBox: {Width: 0.54684097,Height: 0.54684097,Left: 0.19281046,Top: 0.3769063},Confidence: 99.99546}}]}
         Log.i(TAG, "showCompareFacesResult: " + result.toString());
         if (CollectionUtils.isNotEmpty(result.getFaceMatches())) {
-            editor = sharedPref.edit();
-            editor.putBoolean("logged_in", true);
-            editor.apply();
-//            progressDialog.dismiss();
             Log.d(TAG, result.getFaceMatches().get(0).getSimilarity().toString());
-            Toasty.success(getApplicationContext(),"Successfully Logged In",Toast.LENGTH_LONG,true).show();
-            Intent mIntent = new Intent(FaceDetectRGBActivity.this,Home.class);
-            mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(mIntent);
+            if(result.getFaceMatches().get(0).getSimilarity() > 90){
+                progressDialog.dismiss();
+                editor = sharedPref.edit();
+                editor.putBoolean("logged_in", true);
+                editor.apply();
+                Toasty.success(getApplicationContext(),"Successfully Logged In",Toast.LENGTH_LONG,true).show();
+                Intent mIntent = new Intent(FaceDetectRGBActivity.this,Home.class);
+                mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(mIntent);
+            }else
+            {
+                mAuth.signOut();
+                progressDialog.dismiss();
+                Toasty.error(getApplicationContext(),"Seems That It's probably Not you Try another Image!",Toast.LENGTH_SHORT,true).show();
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+            }
         } else {
 //            progressDialog.dismiss();
+            progressDialog.dismiss();
             //loggout from firebase cz error in validating your face
             mAuth.signOut();
-            Toasty.error(getApplicationContext(),"Error while Loggin You In",Toast.LENGTH_LONG,true).show();
+            Toasty.error(getApplicationContext(),"This is Not You Try Again",Toast.LENGTH_LONG,true).show();
             Intent mIntent = new Intent(FaceDetectRGBActivity.this,LoginActivity.class);
             mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(mIntent);

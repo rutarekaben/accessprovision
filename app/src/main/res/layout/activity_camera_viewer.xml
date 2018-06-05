@@ -19,6 +19,11 @@
         <!--android:layout_alignParentRight="true"-->
         <!--android:layout_margin="10dp"-->
         <!--android:scrollbars="vertical" />-->
-
+<ImageView
+    android:id="@+id/imagePreview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    />
 
 </RelativeLayout>

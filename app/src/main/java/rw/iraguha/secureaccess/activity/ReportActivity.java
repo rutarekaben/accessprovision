@@ -17,8 +17,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.angmarch.views.NiceSpinner;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,9 +35,10 @@ import rw.iraguha.secureaccess.model.ParadeReport;
 public class ReportActivity extends AppCompatActivity {
     private static final String TAG = "ReportActivity";
     private Button sendreport;
-    private EditText date,month,year,district,abs,adm,closearr,duty,onp,pass,rank,sick,sickout,total;
+    private EditText date,month,year,district,abs,adm,closearr,duty,onp,pass,sick,sickout,description,total;
     private FirebaseFirestore db;
     private AlertDialog progressDialog;
+    private NiceSpinner mSpinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +57,14 @@ public class ReportActivity extends AppCompatActivity {
         duty = findViewById(R.id.duty);
         onp = findViewById(R.id.onp);
         pass = findViewById(R.id.pass);
-        rank = findViewById(R.id.rank);
         sick = findViewById(R.id.sick);
         sickout = findViewById(R.id.sickout);
+        description = findViewById(R.id.description);
         total = findViewById(R.id.total);
         sendreport = findViewById(R.id.sendreport);
+        mSpinner = findViewById(R.id.mSpinner);
+        List<String> dataset = new LinkedList<>(Arrays.asList(getResources().getStringArray(R.array.rank)));
+        mSpinner.attachDataSource(dataset);
 
         //construct sport dialog
         progressDialog = new SpotsDialog(this);
@@ -64,26 +72,6 @@ public class ReportActivity extends AppCompatActivity {
 
         sendreport.setOnClickListener(v->{
             if(isValid()){
-
-//                Map<String,String> paradereport = new HashMap<>();
-//                paradereport.put("abs",abs.getText().toString());
-//                paradereport.put("adm",adm.getText().toString());
-//                paradereport.put("closearr",closearr.getText().toString());
-//                paradereport.put("duty",duty.getText().toString());
-//                paradereport.put("onp",onp.getText().toString());
-//                paradereport.put("pass",pass.getText().toString());
-//                paradereport.put("rank",rank.getText().toString());
-//                paradereport.put("sick",sick.getText().toString());
-//                paradereport.put("sickout",sickout.getText().toString());
-//                paradereport.put("total",total.getText().toString());
-//                Map<String, Object> user = new HashMap<>();
-//                user.put("date", date.getText().toString());
-//                user.put("district", district.getText().toString());
-//                user.put("month", month.getText().toString());
-//                user.put("year", year.getText().toString());
-//                user.put("data",paradereport);
-
-
                 progressDialog.show();
                 //adding data to firestore
                 ParadeReport mParadeReport = new ParadeReport();
@@ -95,9 +83,10 @@ public class ReportActivity extends AppCompatActivity {
                 mParade.setDuty(duty.getText().toString());
                 mParade.setOnp(onp.getText().toString());
                 mParade.setPass(pass.getText().toString());
-                mParade.setRank(rank.getText().toString());
+                mParade.setRank(String.valueOf(mSpinner.getSelectedIndex()));
                 mParade.setSick(sick.getText().toString());
                 mParade.setSickout(sickout.getText().toString());
+                mParade.setDescription(description.getText().toString());
                 mParade.setTotal(total.getText().toString());
                 data.add(mParade);
                 mParadeReport.setDate(date.getText().toString());
@@ -157,9 +146,6 @@ public class ReportActivity extends AppCompatActivity {
             return false;
         }
         if(TextUtils.isEmpty(pass.getText())){
-            return false;
-        }
-        if(TextUtils.isEmpty(rank.getText())){
             return false;
         }
         if(TextUtils.isEmpty(sick.getText())){

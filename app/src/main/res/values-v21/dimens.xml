@@ -1,13 +1,7 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="small_padding">5dp</dimen>
     <dimen name="big_padding">10dp</dimen>
-    <dimen name="extra_padding">10dp</dimen>
-    <dimen name="editText_size">30dp</dimen>
-    <dimen name="image_square">200dp</dimen>
-    <dimen name="container_padding">10dp</dimen>
-    <dimen name="similarity">80dp</dimen>
     <dimen name="image_preview">60dp</dimen>
     <dimen name="margin_rl">8dp</dimen>
 </resources>

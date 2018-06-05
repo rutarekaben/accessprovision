@@ -1,4 +1,5 @@
 package rw.iraguha.secureaccess.awsutils;
+
 import android.content.Context;
 
 import com.amazonaws.services.rekognition.AmazonRekognition;

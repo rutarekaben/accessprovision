@@ -213,15 +213,11 @@
         android:padding="@dimen/small_padding"
         android:text="RANK"
         />
-    <EditText
-        android:id="@+id/rank"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/big_padding"
-        android:background="@drawable/edit_text_with_edge"
-        android:inputType="numberDecimal"
-        android:layout_marginLeft="@dimen/margin_rl"
-        android:layout_marginRight="@dimen/margin_rl"/>
+    <org.angmarch.views.NiceSpinner
+            android:id="@+id/mSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp" />
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -254,6 +250,28 @@
         android:padding="@dimen/big_padding"
         android:background="@drawable/edit_text_with_edge"
         android:inputType="numberDecimal"
+        android:layout_marginLeft="@dimen/margin_rl"
+        android:layout_marginRight="@dimen/margin_rl"/>
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginRight="@dimen/margin_rl"
+        android:layout_marginLeft="@dimen/margin_rl"
+        android:padding="@dimen/small_padding"
+        android:text="Description"
+        />
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:minLines="6"
+        android:gravity="top|left"
+        android:maxLines="20"
+        android:scrollbars="vertical"
+        android:padding="@dimen/big_padding"
+        android:background="@drawable/edit_text_with_edge"
         android:layout_marginLeft="@dimen/margin_rl"
         android:layout_marginRight="@dimen/margin_rl"/>
     <TextView

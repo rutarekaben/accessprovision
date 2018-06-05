@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/facial"
+    android:background="@drawable/login_bg"
     android:gravity="center"
     tools:context="rw.iraguha.secureaccess.activity.LoginActivity">
 
@@ -28,7 +28,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="@string/login_title"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/white"
                 android:textSize="26sp" />
 
             <ImageView

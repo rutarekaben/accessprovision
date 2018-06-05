@@ -45,7 +45,9 @@
         <activity
             android:name=".activity.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.FaceDetectRGBActivity" />
+        <activity
+            android:label="Identity Verification"
+            android:name=".activity.FaceDetectRGBActivity" />
 
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
@@ -69,6 +71,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="rw.iraguha.secureaccess.activity.Home" />
         </activity>
+        <activity android:name=".activity.ViewReportActivity" />
+        <activity android:name=".activity.ViewReportDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activity.ViewParadeReportActivity" />
+        <activity android:name=".activity.ViewParadeReportDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>

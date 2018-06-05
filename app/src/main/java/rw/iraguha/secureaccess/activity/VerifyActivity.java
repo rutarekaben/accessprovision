@@ -23,6 +23,7 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -127,6 +128,8 @@ public class VerifyActivity extends AppCompatActivity {
                     Snackbar.make(findViewById(android.R.id.content), "Quota exceeded.",
                             Snackbar.LENGTH_SHORT).show();
                     // [END_EXCLUDE]
+                } else if(e instanceof FirebaseAuthException) {
+                    Toasty.error(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG,true).show();
                 }
 
                 // Show a message and update the UI
@@ -276,10 +279,6 @@ public class VerifyActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithCredential:success");
-                        editor = sharedPref.edit();
-                        editor.putBoolean("logged_in", true);
-                        editor.apply();
-
                         FirebaseUser user = task.getResult().getUser();
                         // [START_EXCLUDE]
                         //proceed with checking face

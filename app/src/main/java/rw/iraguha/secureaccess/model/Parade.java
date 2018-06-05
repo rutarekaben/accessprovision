@@ -14,11 +14,12 @@ public class Parade implements Parcelable {
     String sick;
     String sickout;
     String total;
+    String description;
 
     public Parade() {
     }
 
-    public Parade(String abs, String adm, String closearr, String duty, String onp, String pass, String rank, String sick, String sickout, String total) {
+    public Parade(String abs, String adm, String closearr, String duty, String onp, String pass, String rank, String sick, String sickout, String total, String description) {
         this.abs = abs;
         this.adm = adm;
         this.closearr = closearr;
@@ -29,6 +30,7 @@ public class Parade implements Parcelable {
         this.sick = sick;
         this.sickout = sickout;
         this.total = total;
+        this.description = description;
     }
 
     public String getAbs() {
@@ -111,6 +113,14 @@ public class Parade implements Parcelable {
         this.total = total;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 
     @Override
     public int describeContents() {
@@ -129,6 +139,7 @@ public class Parade implements Parcelable {
         dest.writeString(this.sick);
         dest.writeString(this.sickout);
         dest.writeString(this.total);
+        dest.writeString(this.description);
     }
 
     protected Parade(Parcel in) {
@@ -142,6 +153,7 @@ public class Parade implements Parcelable {
         this.sick = in.readString();
         this.sickout = in.readString();
         this.total = in.readString();
+        this.description = in.readString();
     }
 
     public static final Parcelable.Creator<Parade> CREATOR = new Parcelable.Creator<Parade>() {

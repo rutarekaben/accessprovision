@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_200"
+    android:background="@drawable/login_bg"
     tools:context="rw.iraguha.secureaccess.activity.Home">
 
     <android.support.design.widget.AppBarLayout
@@ -35,43 +35,10 @@
             android:id="@+id/firstStage"
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-            <android.support.v7.widget.CardView
-                android:id="@+id/addEmployee"
-                android:elevation="5dp"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginRight="5dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/ic_shield_out"
-                    />
-
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                android:id="@+id/manageEmployee"
-                android:elevation="5dp"
-                android:layout_width="150dp"
-                android:layout_height="150dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/ic_shield"
-                    />
-
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/secondStage"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_height="wrap_content"
             android:gravity="center">
             <android.support.v7.widget.CardView
@@ -80,11 +47,26 @@
                 android:layout_height="150dp"
                 android:layout_marginRight="5dp"
                 android:elevation="5dp">
-                <ImageView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/ic_person_black_24dp"
-                    />
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        app:srcCompat="@drawable/ic_reports"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:text="Regular reports" />
+
+                </LinearLayout>
 
             </android.support.v7.widget.CardView>
             <android.support.v7.widget.CardView
@@ -92,14 +74,134 @@
                 android:elevation="5dp"
                 android:layout_width="150dp"
                 android:layout_height="150dp">
-                <ImageView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/ic_accept"
-                    />
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        app:srcCompat="@drawable/ic_view_reports"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:text="Parade Reports" />
+
+                </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/secondStage"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:gravity="center">
+            <android.support.v7.widget.CardView
+                android:id="@+id/viewreport"
+                android:elevation="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginRight="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        app:srcCompat="@drawable/ic_manage_staff"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:text="View  Reports" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/viewParadeReport"
+                android:elevation="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginRight="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        app:srcCompat="@drawable/ic_parade"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:text="View Parade Reports" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/thirdStage"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:gravity="center">
+            <android.support.v7.widget.CardView
+                android:id="@+id/addEmployee"
+                android:elevation="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginRight="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        app:srcCompat="@drawable/ic_add_user"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:text="Add Staff" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
     </LinearLayout>
  </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

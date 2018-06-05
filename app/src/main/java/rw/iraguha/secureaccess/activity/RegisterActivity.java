@@ -287,7 +287,7 @@ public class RegisterActivity extends AppCompatActivity {
                     faces_.add(faceResult);
                     Bitmap cropedFace = ImageUtils.cropFace(faceResult, bitmap, 0);
                     if (cropedFace != null) {
-                        return  cropedFace;
+                        return  bitmap;
                     }
                 }
             }

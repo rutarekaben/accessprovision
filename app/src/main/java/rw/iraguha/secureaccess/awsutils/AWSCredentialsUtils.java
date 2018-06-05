@@ -1,5 +1,6 @@
 package rw.iraguha.secureaccess.awsutils;
 
+
 import android.content.Context;
 
 import com.amazonaws.AmazonClientException;
@@ -11,7 +12,6 @@ import com.amazonaws.services.securitytoken.model.GetSessionTokenRequest;
 import com.amazonaws.services.securitytoken.model.GetSessionTokenResult;
 
 import rw.iraguha.secureaccess.R;
-
 
 public class AWSCredentialsUtils {
 
